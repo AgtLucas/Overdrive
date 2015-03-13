@@ -26,6 +26,18 @@ module.exports = function () {
     gulp.dest('public/dist/js')
   ];
 
-  
+  if (global.lrserver) {
+    scripts.push(refresh(global.lrserver));
+  }
+
+  var scriptsFunction = multipipe.apply(this, scripts);
+
+  function errorHandler(e) {
+    console.log('ERROR!', e);
+  }
+
+  scriptsFunction.on('error', errorHandler)
+
+  return  scriptsFunction;
 
 };
