@@ -36,7 +36,7 @@ module.exports = function () {
     console.log('ERROR!', e);
   }
 
-  scriptsFunction.on('error', errorHandler)
+  scriptsFunction.on('error', errorHandler);
 
   return  scriptsFunction;
 
