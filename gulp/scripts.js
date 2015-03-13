@@ -18,5 +18,14 @@ function bundler (file) {
 }
 
 module.exports = function () {
+
+  var scripts = [
+    gulp.src('public/src/js/app.jsx'),
+    transform(bundler),
+    rename('app.js'),
+    gulp.dest('public/dist/js')
+  ];
+
   
-}
+
+};
