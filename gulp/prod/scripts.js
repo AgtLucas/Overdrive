@@ -15,3 +15,20 @@ var flowToJshint = require('flow-to-jshint');
 var stylish = require('jshint-stylish');
 var reporter = require(stylish).reporter;
 var bannerTop = '/* @flow */' + '\n';
+
+function bundler(file) {
+  console.log(file);
+
+  var b = browserify(es6ify.runtime, {
+    extensions: ['.jsx'],
+    debug: true,
+    insertGlobalVars: true
+  });
+
+  function reactifyTags(file) {
+    return reactify(file, {scriptTypes: true});
+  }
+
+  b.add(file);
+  b.require('./public/src/js/ecar.jsx', {expose: 'ecar'});
+};
