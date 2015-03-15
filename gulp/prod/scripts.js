@@ -31,4 +31,7 @@ function bundler(file) {
 
   b.add(file);
   b.require('./public/src/js/ecar.jsx', {expose: 'ecar'});
-};
+  b.transform(reactifyTags);
+  b.transform(es6ify.configure(/.(jsx|js)$/));
+  return b.bundle();
+}
