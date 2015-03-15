@@ -35,3 +35,26 @@ function bundler(file) {
   b.transform(es6ify.configure(/.(jsx|js)$/));
   return b.bundle();
 }
+
+module.exports = function () {
+  var scripts = [
+    gulp.src('public/src/js/ecar.jsx'),
+    transform(bundler),
+    rename('app.min.js'),
+    gulp.dest('src/main/webapp/js')
+  ];
+
+  if (global.lrserver) {
+    scripts.push(refresh(global.lrserver));
+  }
+
+  var scriptsFunction = multipipe.apply(this, scripts);
+
+  function errorHandler(e) {
+    console.log(e);
+  }
+
+  scriptsFunction.on('error', errorHandler);
+
+  return scriptsFunction;
+};
